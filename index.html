@@ -725,11 +725,18 @@
     waitForFbq(function() {
       console.log('✅ Meta Pixel cargado correctamente');
       
-      // Track clicks en botón principal
+      // Track clicks en botón principal - EVENTO WHATSAPP
       document.getElementById('mainCTA').addEventListener('click', function(e) {
         console.log('🎯 Click en botón principal detectado');
         
-        // Enviar evento Lead (más importante que evento personalizado)
+        // Evento personalizado de WhatsApp
+        fbq('trackCustom', 'WhatsAppClick', {
+          button_location: 'CTA Principal',
+          button_text: 'Quiero mi bono del 100%',
+          content_name: 'Bono Bienvenida'
+        });
+        
+        // También enviar evento Lead (conversión)
         fbq('track', 'Lead', {
           content_name: 'Bono Bienvenida',
           content_category: 'CTA Principal',
@@ -737,19 +744,26 @@
           currency: 'ARS'
         });
         
-        // También enviar evento Contact
+        // Evento Contact
         fbq('track', 'Contact', {
           content_name: 'WhatsApp CTA Principal'
         });
         
-        console.log('✅ Eventos enviados: Lead y Contact');
+        console.log('✅ Eventos enviados: WhatsAppClick, Lead y Contact');
       });
       
-      // Track clicks en botón flotante
+      // Track clicks en botón flotante - EVENTO WHATSAPP
       document.getElementById('floatCTA').addEventListener('click', function(e) {
         console.log('🎯 Click en botón flotante detectado');
         
-        // Enviar evento Lead
+        // Evento personalizado de WhatsApp
+        fbq('trackCustom', 'WhatsAppClick', {
+          button_location: 'Botón Flotante',
+          button_text: 'WhatsApp Flotante',
+          content_name: 'Bono Bienvenida'
+        });
+        
+        // También enviar evento Lead (conversión)
         fbq('track', 'Lead', {
           content_name: 'Bono Bienvenida',
           content_category: 'CTA Flotante',
@@ -757,13 +771,14 @@
           currency: 'ARS'
         });
         
-        // También enviar evento Contact
+        // Evento Contact
         fbq('track', 'Contact', {
           content_name: 'WhatsApp Flotante'
         });
         
-        console.log('✅ Eventos enviados: Lead y Contact');
+        console.log('✅ Eventos enviados: WhatsAppClick, Lead y Contact');
       });
+
 
       // ✅ TRACK TIEMPO EN PÁGINA (ViewContent después de 10 segundos)
       setTimeout(function() {
